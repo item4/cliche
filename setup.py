@@ -33,7 +33,7 @@ def readme():
 install_requires = {
     # Entity classes
     'SQLAlchemy >= 1.0.0',
-    'alembic >= 0.7.5',
+    'alembic >= 0.8.2',
     # Configuration
     'PyYAML >= 3.11',
     # Crawler
