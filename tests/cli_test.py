@@ -18,7 +18,7 @@ def test_upgrade_empty_cmd(fx_cli_runner):
     assert 'The -c/--config' in result.output
 
 
-def test_upgrade_wrong_path():
+def test_upgrade_wrong_path(fx_change_cwd_to_python_dir):
     """wrong path"""
     p = subprocess.Popen(
         ['cliche', 'upgrade', '-c', 'invalid.cfg.py'],
@@ -31,7 +31,8 @@ def test_upgrade_wrong_path():
     assert exit_code == 2
 
 
-def test_upgrade_fine_use_metadata(fx_cfg_yml_file_use_db_url):
+def test_upgrade_fine_use_metadata(fx_change_cwd_to_python_dir,
+                                   fx_cfg_yml_file_use_db_url):
     """work normally, no additional options"""
     database_engine = app.config['DATABASE_ENGINE']
     Base.metadata.drop_all(bind=database_engine)
@@ -49,7 +50,8 @@ def test_upgrade_fine_use_metadata(fx_cfg_yml_file_use_db_url):
     assert exit_code == 0
 
 
-def test_upgrade_fine_use_alembic(fx_cfg_yml_file_use_db_url,
+def test_upgrade_fine_use_alembic(fx_change_cwd_to_python_dir,
+                                  fx_cfg_yml_file_use_db_url,
                                   fx_only_support_pgsql):
     """work normally, no additional options"""
     database_engine = app.config['DATABASE_ENGINE']
@@ -91,7 +93,8 @@ def test_upgrade_fine_use_alembic(fx_cfg_yml_file_use_db_url,
     assert exit_code == 0
 
 
-def test_upgrade_downgrade_fine_after_upgrade(fx_cfg_yml_file_use_db_url,
+def test_upgrade_downgrade_fine_after_upgrade(fx_change_cwd_to_python_dir,
+                                              fx_cfg_yml_file_use_db_url,
                                               fx_only_support_pgsql):
     """downgrade work normally after upgrade"""
     database_engine = app.config['DATABASE_ENGINE']
@@ -142,7 +145,8 @@ def test_upgrade_downgrade_fine_after_upgrade(fx_cfg_yml_file_use_db_url,
     assert exit_code == 0
 
 
-def test_upgrade_downgrade_fail_after_upgrade(fx_cfg_yml_file_use_db_url,
+def test_upgrade_downgrade_fail_after_upgrade(fx_change_cwd_to_python_dir,
+                                              fx_cfg_yml_file_use_db_url,
                                               fx_only_support_pgsql):
     """downgrade work incorrectly after upgrade"""
     database_engine = app.config['DATABASE_ENGINE']

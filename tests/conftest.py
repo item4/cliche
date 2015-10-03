@@ -1,6 +1,7 @@
 import datetime
 import os
 import pathlib
+import sys
 import types
 
 from click.testing import CliRunner
@@ -46,6 +47,19 @@ def fx_tmpdir(tmpdir):
 
     """
     return pathlib.Path(str(tmpdir))
+
+
+@yield_fixture
+def fx_change_cwd_to_python_dir():
+    """Change current working directory to Python Executable directory.
+    It needs some development environments such as JetBrains programs.
+
+    """
+    python_dir = pathlib.Path(sys.executable).parent
+    cwd = pathlib.Path.cwd()
+    os.chdir(str(python_dir))
+    yield
+    os.chdir(str(cwd))
 
 
 @yield_fixture
