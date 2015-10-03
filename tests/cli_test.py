@@ -45,7 +45,7 @@ def test_upgrade_fine_use_metadata(fx_cfg_yml_file_use_db_url):
     )
     out, err = p.communicate()
     exit_code = p.returncode
-    assert 'INFO  [alembic.migration]' in err.decode('u8')
+    assert 'INFO  [alembic.runtime.migration]' in err.decode('u8')
     assert exit_code == 0
 
 
