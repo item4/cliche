@@ -35,3 +35,6 @@ cliche/web/static/css/*
 deploy/tmp
 cliche-deploy-*.tar.gz
 deploy/cliche_deploy_key
+
+# curdling
+.cache
