@@ -192,7 +192,8 @@ def test_upgrade_downgrade_fail_after_upgrade(fx_change_cwd_to_python_dir,
     )
     out, err = p.communicate()
     exit_code = p.returncode
-    assert "No such revision or branch 'zzzzzzzzzzz'" in err.decode('u8')
+    assert "Can't locate revision identified by 'zzzzzzzzzzz'" \
+           in err.decode('u8')
     assert exit_code == 1
 
 
