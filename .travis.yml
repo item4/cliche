@@ -43,7 +43,7 @@ script:
 # lint
 - hooks/pre-commit
 after_success:
-- coveralls
+- '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && coveralls || false'
 notifications:
   irc:
     channels:
