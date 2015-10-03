@@ -10,6 +10,7 @@ env:
   - secure: "EfV35XpgCBgwuBUhbRKdi+YgRhZezJcvtpt1ZhkB4/+CC3QBLr6gDt9Vimqvdx2ZyUa8UQP5oWQ4q0YsRQf6c3qsmFHUU6ZVzMTHvRxSZ08o87kignYnlyd+RmfpSY08exwYdSrVnLbMn8igsLHuTVV1e5yOb2P8i+sXQOQQ4X8="
   - secure: "Q2c5a4gFu9wVjOJP9V8amJr0q4JfobXHVDaEFwNj7U+qn9CfFDoAcWKPuy7NYF5nY/ShrhJ7TQfmry9yDYpantvFpt0Dpv3/INb+7t+xdy2hlIBVbcMwvqaR2DGp6Z0wsEaUop015fQnh9cvkNhKctFJsdUql3W6joNkNSfaZ0c="
 python:
+- 3.5
 - 3.4
 - 3.3
 addons:
