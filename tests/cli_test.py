@@ -5,6 +5,15 @@ from cliche.orm import Base
 from cliche.web.app import app
 
 
+def remove_alembic_version():
+    """Remove alembic_version table for tests."""
+    database_engine = app.config['DATABASE_ENGINE']
+    Base.metadata.drop_all(bind=database_engine)
+    database_engine.execute(
+        "drop table if exists alembic_version;"
+    )
+
+
 def test_cli(fx_cli_runner):
     """empty command"""
     result = fx_cli_runner.invoke(cli, [])
@@ -34,11 +43,7 @@ def test_upgrade_wrong_path(fx_change_cwd_to_python_dir):
 def test_upgrade_fine_use_metadata(fx_change_cwd_to_python_dir,
                                    fx_cfg_yml_file_use_db_url):
     """work normally, no additional options"""
-    database_engine = app.config['DATABASE_ENGINE']
-    Base.metadata.drop_all(bind=database_engine)
-    database_engine.execute(
-        "drop table if exists alembic_version;"
-    )
+    remove_alembic_version()
     p = subprocess.Popen(
         ['cliche', 'upgrade', '-c', str(fx_cfg_yml_file_use_db_url)],
         stdout=subprocess.PIPE,
@@ -54,11 +59,7 @@ def test_upgrade_fine_use_alembic(fx_change_cwd_to_python_dir,
                                   fx_cfg_yml_file_use_db_url,
                                   fx_only_support_pgsql):
     """work normally, no additional options"""
-    database_engine = app.config['DATABASE_ENGINE']
-    Base.metadata.drop_all(bind=database_engine)
-    database_engine.execute(
-        "drop table if exists alembic_version;"
-    )
+    remove_alembic_version()
     p = subprocess.Popen(
         [
             'cliche',
@@ -97,11 +98,7 @@ def test_upgrade_downgrade_fine_after_upgrade(fx_change_cwd_to_python_dir,
                                               fx_cfg_yml_file_use_db_url,
                                               fx_only_support_pgsql):
     """downgrade work normally after upgrade"""
-    database_engine = app.config['DATABASE_ENGINE']
-    Base.metadata.drop_all(bind=database_engine)
-    database_engine.execute(
-        "drop table if exists alembic_version;"
-    )
+    remove_alembic_version()
     p = subprocess.Popen(
         [
             'cliche',
@@ -149,11 +146,7 @@ def test_upgrade_downgrade_fail_after_upgrade(fx_change_cwd_to_python_dir,
                                               fx_cfg_yml_file_use_db_url,
                                               fx_only_support_pgsql):
     """downgrade work incorrectly after upgrade"""
-    database_engine = app.config['DATABASE_ENGINE']
-    Base.metadata.drop_all(bind=database_engine)
-    database_engine.execute(
-        "drop table if exists alembic_version;"
-    )
+    remove_alembic_version()
     p = subprocess.Popen(
         [
             'cliche',
